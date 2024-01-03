@@ -9,9 +9,13 @@
         height="100"
       />
       <h1 class="h3 mb-3 fw-normal text-center">Please register</h1>
-      <Input :type="'text'" :label="'Username'" />
-      <Input :type="'email'" :label="'Email'" />
-      <Input :type="'password'" :label="'Password'" />
+      <Validation
+        v-if="validationErrors"
+        :validationErrors="validationErrors"
+      />
+      <Input :type="'text'" :label="'Username'" v-model="username" />
+      <Input :type="'email'" :label="'Email'" v-model="email" />
+      <Input :type="'password'" :label="'Password'" v-model="password" />
       <Button type="submit" :disabled="isLoading" @click="submitHandler"
         >Register</Button
       >
@@ -20,23 +24,40 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import Validation from "@/components/Validation.vue";
+
 export default {
+  data() {
+    return {
+      username: "",
+      email: "",
+      password: "",
+    };
+  },
+  components: {
+    Validation,
+  },
   computed: {
-    isLoading() {
-      return this.$store.state.auth.isLoading;
-    },
+    ...mapState({
+      isLoading: (state) => state.auth.isLoading,
+      validationErrors: (state) => state.auth.errors,
+    }),
   },
   methods: {
     submitHandler(event) {
       event.preventDefault();
       const data = {
-        username: "poli",
-        email: "poli@gmail.com",
-        password: "polipass",
+        username: this.username,
+        email: this.email,
+        password: this.password,
       };
       this.$store
         .dispatch("register", data)
-        .then((user) => console.log("User", user))
+        .then((user) => {
+          console.log("User", user);
+          this.$router.push({ name: "home" });
+        })
         .catch((error) => console.log("Error", error));
     },
   },

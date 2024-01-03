@@ -1,17 +1,20 @@
 <template>
   <div class="container">
-    <Navbar/>
-    <RouterView/>
+    <Navbar />
+    <RouterView />
   </div>
 </template>
 
 <script>
-import { Navbar } from './components';
+import { Navbar } from "./components";
 
 export default {
   components: {
     Navbar,
-  }
+  },
+  mounted() {
+    this.$store.dispatch("getUser");
+  },
 };
 </script>
 
