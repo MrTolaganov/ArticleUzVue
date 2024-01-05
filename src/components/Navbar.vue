@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column flex-md-row align-items-center border-bottom">
+  <div class="d-flex flex-column flex-md-row align-items-center border-bottom mb-3">
     <RouterLink
       :to="{ name: 'home' }"
       class="d-flex align-items-center link-body-emphasis text-decoration-none"
