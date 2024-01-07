@@ -29,12 +29,24 @@
             >
               Read
             </button>
-            <button type="button" class="btn btn-sm btn-outline-warning">
-              Edit
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-danger">
-              Delete
-            </button>
+            <template v-if="username === article.author.username">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-warning"
+                :disabled="isLoading"
+                @click="editArticleHandler"
+              >
+                Edit
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger"
+                :disabled="isLoading"
+                @click="deleteArticleHandler"
+              >
+                Delete
+              </button>
+            </template>
           </div>
           <small class="text-muted">{{
             new Date(article.createdAt).toLocaleDateString("us")
@@ -46,6 +58,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   props: {
     article: {
@@ -57,6 +70,22 @@ export default {
     navigateHandler() {
       return this.$router.push(`/article/${this.article.slug}`);
     },
+    deleteArticleHandler() {
+      return this.$store
+        .dispatch("deleteArticle", this.article.slug)
+        .then(() => {
+          this.$store.dispatch("articles");
+        });
+    },
+    editArticleHandler() {
+      return this.$router.push(`/edit-article/${this.article.slug}`);
+    },
+  },
+  computed: {
+    ...mapState({
+      username: (state) => state.auth.user.username,
+      isLoading: (state) => state.control.isLoading,
+    }),
   },
 };
 </script>

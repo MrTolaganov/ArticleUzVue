@@ -7,6 +7,15 @@ const ArticleService = {
   articleDetail(slug) {
     return axios.get(`/articles/${slug}`);
   },
+  createArticle(article) {
+    return axios.post("/articles", { article });
+  },
+  deleteArticle(slug) {
+    return axios.delete(`/articles/${slug}`);
+  },
+  updateArticle(slug, article) {
+    return axios.put(`/articles/${slug}`, { article });
+  },
 };
 
 export default ArticleService;

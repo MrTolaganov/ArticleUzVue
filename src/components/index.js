@@ -4,3 +4,4 @@ export { default as Login } from "./Login.vue";
 export { default as Validation } from "./Validation.vue";
 export { default as ArticleCard } from "./ArticleCard.vue";
 export { default as ArticleDetail } from "./ArticleDetail.vue";
+export { default as ArticleForm } from "./ArticleForm.vue";

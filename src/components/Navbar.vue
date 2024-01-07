@@ -1,5 +1,7 @@
 <template>
-  <div class="d-flex flex-column flex-md-row align-items-center border-bottom mb-3">
+  <div
+    class="d-flex flex-column flex-md-row align-items-center border-bottom mb-3"
+  >
     <RouterLink
       :to="{ name: 'home' }"
       class="d-flex align-items-center link-body-emphasis text-decoration-none"
@@ -10,18 +12,24 @@
     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
       <template v-if="isLoggedIn">
         <RouterLink
+          :to="{ name: 'create-article' }"
+          class="me-3 py-2 link-body-emphasis text-decoration-none"
+        >
+          Create
+        </RouterLink>
+        <RouterLink
           :to="{ name: 'home' }"
           class="me-3 py-2 link-body-emphasis text-decoration-none"
         >
           {{ currentUser.username }}
         </RouterLink>
-        <a
-          href="#"
+        <RouterLink
+          :to="{name: 'login'}"
           class="me-3 py-2 link-body-emphasis text-decoration-none text-danger"
           @click="logout"
         >
           Logout
-        </a>
+        </RouterLink>
       </template>
       <template v-if="isAnonymous">
         <RouterLink
